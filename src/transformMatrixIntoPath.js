@@ -9,7 +9,7 @@ export default (matrix, size) => {
           path += `M${cellSize * j} ${cellSize / 2 + cellSize * i} `
           needDraw = true
         }
-        if (needDraw && j === matrix.length - 1) {
+        if (j === matrix.length - 1) {
           path += `L${cellSize * (j + 1)} ${cellSize / 2 + cellSize * i} `
         }
       } else {
