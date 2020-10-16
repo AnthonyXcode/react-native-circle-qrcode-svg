@@ -7,7 +7,8 @@ import Svg, {
   Image,
   ClipPath,
   LinearGradient,
-  Stop
+  Stop,
+  Circle
 } from 'react-native-svg'
 import genMatrix from './genMatrix'
 import transformMatrixIntoPath from './transformMatrixIntoPath'
@@ -127,6 +128,10 @@ const QRCode = ({
           <Stop offset='0' stopColor={linearGradient[0]} stopOpacity='1' />
           <Stop offset='1' stopColor={linearGradient[1]} stopOpacity='1' />
         </LinearGradient>
+        {isCircle &&
+          <ClipPath id='circle'>
+            <Circle cx='50%' cy='50%' r='50%' />
+          </ClipPath>}
       </Defs>
       <G>
         <Rect
@@ -141,6 +146,7 @@ const QRCode = ({
         <Path
           d={path}
           stroke={enableLinearGradient ? 'url(#grad)' : color}
+          clipPath={isCircle ? 'url(#circle)' : ''}
           strokeWidth={cellSize}
         />
       </G>

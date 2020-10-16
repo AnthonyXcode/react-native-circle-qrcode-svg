@@ -18,7 +18,6 @@ export default (matrix, size, isCircle) => {
         const shouldDraw = Math.round(Math.random()) === 1
         const isOutside = (backgroundCellSize * (j + 1) < startingPoint || backgroundCellSize * j > size - startingPoint) ||
           (cellSize / 2 + backgroundCellSize * i < startingPoint || cellSize / 2 + backgroundCellSize * i > size - startingPoint)
-        console.log(isOutside)
         if (shouldDraw && isOutside) {
           path += `M${backgroundCellSize * j} ${cellSize / 2 + backgroundCellSize * i} `
           path += `L${backgroundCellSize * (j + 1)} ${cellSize / 2 + backgroundCellSize * i} `
