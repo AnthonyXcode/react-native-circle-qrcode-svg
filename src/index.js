@@ -82,11 +82,12 @@ const QRCode = ({
   linearGradient = ['rgb(255,0,0)', 'rgb(0,255,255)'],
   ecl = 'M',
   getRef,
-  onError
+  onError,
+  isCircle = false
 }) => {
   const result = useMemo(() => {
     try {
-      return transformMatrixIntoPath(genMatrix(value, ecl), size)
+      return transformMatrixIntoPath(genMatrix(value, ecl), size, isCircle)
     } catch (error) {
       if (onError && typeof onError === 'function') {
         onError(error)
