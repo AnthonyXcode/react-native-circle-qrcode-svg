@@ -86,7 +86,8 @@ const QRCode = ({
   getRef,
   onError,
   isCircle = false,
-  text = ''
+  text = '',
+  ratio = 1
 }) => {
   const result = useMemo(() => {
     try {
@@ -106,6 +107,8 @@ const QRCode = ({
   }
 
   const { path, cellSize } = result
+  const textBGPositionY = (1 - 50 * ratio / (size + 50 * ratio)) * 100
+  const textPositionY = (1 - 30 * ratio / (size + 30 * ratio)) * 100
 
   return (
     <Svg
@@ -117,7 +120,7 @@ const QRCode = ({
         size + quietZone * 2
       ].join(' ')}
       width={size}
-      height={size}
+      height={isCircle ? size : size + 50 * ratio}
     >
       <Defs>
         <LinearGradient
@@ -163,20 +166,18 @@ const QRCode = ({
           <G>
             <Rect
               x='0%'
-              y='85%'
-              height='19'
+              y={`${textBGPositionY}%`}
+              height={isCircle ? 19 * ratio : 50 * ratio}
               width='100%'
               fill={backgroundColor}
             />
             <Text
               fill={enableLinearGradient ? 'url(#grad)' : color}
-              stroke={backgroundColor}
               fontSize='15'
-              fontWeight='bold'
-              x='50%'
-              y='90%'
-              textAnchor='middle'
-              strokeWidth={1}
+              fontWeight='300'
+              x={isCircle ? '50%' : '100%'}
+              y={`${textPositionY}%`}
+              textAnchor={isCircle ? 'middle' : 'end'}
               clipPath={isCircle ? 'url(#circle)' : ''}
             >
               {text}
@@ -188,7 +189,7 @@ const QRCode = ({
         renderLogo({
           size,
           logo,
-          logoSize,
+          logoSize: isCircle ? logoSize * 0.8 : logoSize,
           logoBackgroundColor,
           logoMargin,
           logoBorderRadius
