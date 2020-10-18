@@ -8,7 +8,8 @@ import Svg, {
   ClipPath,
   LinearGradient,
   Stop,
-  Circle
+  Circle,
+  Text
 } from 'react-native-svg'
 import genMatrix from './genMatrix'
 import transformMatrixIntoPath from './transformMatrixIntoPath'
@@ -84,7 +85,8 @@ const QRCode = ({
   ecl = 'M',
   getRef,
   onError,
-  isCircle = false
+  isCircle = false,
+  text = ''
 }) => {
   const result = useMemo(() => {
     try {
@@ -128,30 +130,60 @@ const QRCode = ({
           <Stop offset='0' stopColor={linearGradient[0]} stopOpacity='1' />
           <Stop offset='1' stopColor={linearGradient[1]} stopOpacity='1' />
         </LinearGradient>
-        {isCircle &&
+        {isCircle && (
           <ClipPath id='circle'>
             <Circle cx='50%' cy='50%' r='50%' />
-          </ClipPath>}
+          </ClipPath>
+        )}
       </Defs>
-      <G>
+      <G clipPath={isCircle ? 'url(#circle)' : ''}>
         <Rect
           x={-quietZone}
           y={-quietZone}
           width={size + quietZone * 2}
           height={size + quietZone * 2}
           fill={backgroundColor}
-          clipPath={isCircle ? 'url(#circle)' : ''}
         />
-      </G>
-      <G>
         <Path
           d={path}
           stroke={enableLinearGradient ? 'url(#grad)' : color}
-          clipPath={isCircle ? 'url(#circle)' : ''}
           strokeWidth={cellSize}
         />
+        {isCircle && (
+          <Circle
+            cx='50%'
+            cy='50%'
+            r='50%'
+            stroke={enableLinearGradient ? 'url(#grad)' : color}
+            strokeWidth='1'
+            fill='#00000000'
+          />
+        )}
+        {!!text && (
+          <G>
+            <Rect
+              x='0%'
+              y='85%'
+              height='19'
+              width='100%'
+              fill={backgroundColor}
+            />
+            <Text
+              fill={enableLinearGradient ? 'url(#grad)' : color}
+              stroke={backgroundColor}
+              fontSize='15'
+              fontWeight='bold'
+              x='50%'
+              y='90%'
+              textAnchor='middle'
+              strokeWidth={1}
+              clipPath={isCircle ? 'url(#circle)' : ''}
+            >
+              {text}
+            </Text>
+          </G>
+        )}
       </G>
-      {isCircle && <Circle cx='50%' cy='50%' r='50%' stroke={enableLinearGradient ? 'url(#grad)' : color} strokeWidth='1' fill='#00000000' />}
       {logo &&
         renderLogo({
           size,
