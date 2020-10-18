@@ -140,6 +140,7 @@ const QRCode = ({
           width={size + quietZone * 2}
           height={size + quietZone * 2}
           fill={backgroundColor}
+          clipPath={isCircle ? 'url(#circle)' : ''}
         />
       </G>
       <G>
@@ -150,6 +151,7 @@ const QRCode = ({
           strokeWidth={cellSize}
         />
       </G>
+      {isCircle && <Circle cx='50%' cy='50%' r='50%' stroke={enableLinearGradient ? 'url(#grad)' : color} strokeWidth='1' fill='#00000000' />}
       {logo &&
         renderLogo({
           size,
