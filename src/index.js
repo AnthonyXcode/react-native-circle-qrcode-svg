@@ -9,7 +9,8 @@ import Svg, {
   LinearGradient,
   Stop,
   Circle,
-  Text
+  Text,
+  TextPath
 } from 'react-native-svg'
 import genMatrix from './genMatrix'
 import transformMatrixIntoPath from './transformMatrixIntoPath'
@@ -107,8 +108,6 @@ const QRCode = ({
   }
 
   const { path, cellSize } = result
-  const textBGPositionY = (1 - 50 * ratio / (size + 50 * ratio)) * 100
-  const textPositionY = (1 - 30 * ratio / (size + 30 * ratio)) * 100
 
   return (
     <Svg
@@ -133,6 +132,7 @@ const QRCode = ({
           <Stop offset='0' stopColor={linearGradient[0]} stopOpacity='1' />
           <Stop offset='1' stopColor={linearGradient[1]} stopOpacity='1' />
         </LinearGradient>
+        <Path id='textPath' d={`M${0} ${size} L${size} ${size}`} />
         {isCircle && (
           <ClipPath id='circle'>
             <Circle cx='50%' cy='50%' r='50%' />
@@ -144,7 +144,7 @@ const QRCode = ({
           x={-quietZone}
           y={-quietZone}
           width={size + quietZone * 2}
-          height={size + quietZone * 2}
+          height={size + quietZone * 2 + (isCircle ? 19 * ratio : 50 * ratio)}
           fill={backgroundColor}
         />
         <Path
@@ -163,24 +163,16 @@ const QRCode = ({
           />
         )}
         {!!text && (
-          <G>
-            <Rect
-              x='0%'
-              y={`${textBGPositionY}%`}
-              height={isCircle ? 19 * ratio : 50 * ratio}
-              width='100%'
-              fill={backgroundColor}
-            />
+          <G y='20'>
             <Text
               fill={enableLinearGradient ? 'url(#grad)' : color}
               fontSize='15'
               fontWeight='300'
-              x={isCircle ? '50%' : '100%'}
-              y={`${textPositionY}%`}
               textAnchor={isCircle ? 'middle' : 'end'}
-              clipPath={isCircle ? 'url(#circle)' : ''}
             >
-              {text}
+              <TextPath href='#textPath' startOffset='100%'>
+                {text}
+              </TextPath>
             </Text>
           </G>
         )}

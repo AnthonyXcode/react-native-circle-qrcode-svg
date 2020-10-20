@@ -19,6 +19,10 @@ exports[`QRCode renders correctly 1`] = `
         {"offset":"1","stopColor":"rgb(0,255,255)","stopOpacity":"1"}
       </span>
     </span>
+    <span>
+      Path: 
+      {"id":"textPath","d":"M0 100 L100 100"}
+    </span>
   </span>
   <span>
     G: 
@@ -26,7 +30,7 @@ exports[`QRCode renders correctly 1`] = `
     children: 
     <span>
       Rect: 
-      {"x":0,"y":0,"width":100,"height":100,"fill":"white"}
+      {"x":0,"y":0,"width":100,"height":150,"fill":"white"}
     </span>
     <span>
       Path: 
@@ -55,6 +59,10 @@ exports[`QRCode renders with logo correctly 1`] = `
         {"offset":"1","stopColor":"rgb(0,255,255)","stopOpacity":"1"}
       </span>
     </span>
+    <span>
+      Path: 
+      {"id":"textPath","d":"M0 100 L100 100"}
+    </span>
   </span>
   <span>
     G: 
@@ -62,7 +70,7 @@ exports[`QRCode renders with logo correctly 1`] = `
     children: 
     <span>
       Rect: 
-      {"x":0,"y":0,"width":100,"height":100,"fill":"white"}
+      {"x":0,"y":0,"width":100,"height":150,"fill":"white"}
     </span>
     <span>
       Path: 
@@ -137,6 +145,10 @@ exports[`QRCode renders with segmented value 1`] = `
         {"offset":"1","stopColor":"rgb(0,255,255)","stopOpacity":"1"}
       </span>
     </span>
+    <span>
+      Path: 
+      {"id":"textPath","d":"M0 100 L100 100"}
+    </span>
   </span>
   <span>
     G: 
@@ -144,7 +156,7 @@ exports[`QRCode renders with segmented value 1`] = `
     children: 
     <span>
       Rect: 
-      {"x":0,"y":0,"width":100,"height":100,"fill":"white"}
+      {"x":0,"y":0,"width":100,"height":150,"fill":"white"}
     </span>
     <span>
       Path: 
