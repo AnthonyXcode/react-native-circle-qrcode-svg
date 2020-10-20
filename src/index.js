@@ -79,7 +79,7 @@ const QRCode = ({
   logoBackgroundColor = 'transparent',
   logoMargin = 2,
   logoBorderRadius = 0,
-  quietZone = 0,
+  border = 0,
   enableLinearGradient = false,
   gradientDirection = ['0%', '0%', '100%', '100%'],
   linearGradient = ['rgb(255,0,0)', 'rgb(0,255,255)'],
@@ -107,7 +107,9 @@ const QRCode = ({
     return null
   }
 
-  const { path, cellSize } = result
+  const { path, cellSize, startingPoint } = result
+  const quietZone = isCircle ? 0 : border
+  const textPath = `M${0} ${size - startingPoint} L${size} ${size - startingPoint}`
 
   return (
     <Svg
@@ -132,7 +134,7 @@ const QRCode = ({
           <Stop offset='0' stopColor={linearGradient[0]} stopOpacity='1' />
           <Stop offset='1' stopColor={linearGradient[1]} stopOpacity='1' />
         </LinearGradient>
-        <Path id='textPath' d={`M${0} ${size} L${size} ${size}`} />
+        <Path id='textPath' d={textPath} />
         {isCircle && (
           <ClipPath id='circle'>
             <Circle cx='50%' cy='50%' r='50%' />
@@ -144,7 +146,7 @@ const QRCode = ({
           x={-quietZone}
           y={-quietZone}
           width={size + quietZone * 2}
-          height={size + quietZone * 2 + (isCircle ? 19 * ratio : 50 * ratio)}
+          height={size + quietZone * 2 + (isCircle ? 0 : 50 * ratio)}
           fill={backgroundColor}
         />
         <Path
@@ -158,19 +160,24 @@ const QRCode = ({
             cy='50%'
             r='50%'
             stroke={enableLinearGradient ? 'url(#grad)' : color}
-            strokeWidth='1'
+            strokeWidth={border > 0 ? border < 11 ? border : 10 : '1'}
             fill='#00000000'
           />
         )}
         {!!text && (
-          <G y='20'>
+          <G y={isCircle ? '14' : '16'}>
+            <Path
+              d={textPath}
+              stroke={backgroundColor}
+              strokeWidth={18}
+            />
             <Text
               fill={enableLinearGradient ? 'url(#grad)' : color}
               fontSize='15'
               fontWeight='300'
               textAnchor={isCircle ? 'middle' : 'end'}
             >
-              <TextPath href='#textPath' startOffset='100%'>
+              <TextPath href='#textPath' startOffset={isCircle ? '50%' : '100%'}>
                 {text}
               </TextPath>
             </Text>
@@ -181,10 +188,10 @@ const QRCode = ({
         renderLogo({
           size,
           logo,
-          logoSize: isCircle ? logoSize * 0.8 : logoSize,
+          logoSize: isCircle ? logoSize * 0.6 : logoSize,
           logoBackgroundColor,
-          logoMargin,
-          logoBorderRadius
+          logoMargin: isCircle ? logoMargin * 0.6 : logoMargin,
+          logoBorderRadius: isCircle ? logoBorderRadius * 0.6 : logoBorderRadius
         })}
     </Svg>
   )

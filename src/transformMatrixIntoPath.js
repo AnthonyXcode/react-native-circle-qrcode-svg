@@ -1,6 +1,6 @@
 export default (matrix, size, isCircle) => {
-  const cellSize = (isCircle ? size * Math.cos(Math.PI / 4) : size) / matrix.length
-  const startingPoint = isCircle ? (size - size * Math.cos(Math.PI / 4)) / 2 : 0
+  const cellSize = (isCircle ? (size * Math.cos(Math.PI / 4) - 10) : size) / matrix.length
+  const startingPoint = isCircle ? (size - size * Math.cos(Math.PI / 4) + 10) / 2 : 0
   let path = ''
   matrix.forEach((row, i) => {
     row.forEach((column, j) => {
@@ -27,6 +27,7 @@ export default (matrix, size, isCircle) => {
   }
   return {
     cellSize,
-    path
+    path,
+    startingPoint
   }
 }
