@@ -121,7 +121,7 @@ const QRCode = ({
         size + quietZone * 2
       ].join(' ')}
       width={size}
-      height={isCircle ? size : size + 50 * ratio}
+      height={isCircle || !text ? size : size + 50 * ratio}
     >
       <Defs>
         <LinearGradient
