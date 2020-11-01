@@ -26,7 +26,7 @@ exports[`QRCode renders correctly 1`] = `
     children: 
     <span>
       Rect: 
-      {"x":0,"y":0,"width":100,"height":null,"fill":"white"}
+      {"x":0,"y":0,"width":100,"height":100,"fill":"white"}
     </span>
     <span>
       Path: 
@@ -62,7 +62,7 @@ exports[`QRCode renders with logo correctly 1`] = `
     children: 
     <span>
       Rect: 
-      {"x":0,"y":0,"width":100,"height":null,"fill":"white"}
+      {"x":0,"y":0,"width":100,"height":100,"fill":"white"}
     </span>
     <span>
       Path: 
@@ -144,7 +144,7 @@ exports[`QRCode renders with segmented value 1`] = `
     children: 
     <span>
       Rect: 
-      {"x":0,"y":0,"width":100,"height":null,"fill":"white"}
+      {"x":0,"y":0,"width":100,"height":100,"fill":"white"}
     </span>
     <span>
       Path: 

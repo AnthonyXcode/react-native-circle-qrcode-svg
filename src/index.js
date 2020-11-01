@@ -187,7 +187,7 @@ const QRCode = ({
           x={-quietZone}
           y={-quietZone}
           width={size + quietZone * 2}
-          height={size + quietZone * 2 + (isCircle ? 0 : 50 * ratio)}
+          height={size + quietZone * 2 + (isCircle || !text ? 0 : 50 * ratio)}
           fill={backgroundColor}
         />
         <Path

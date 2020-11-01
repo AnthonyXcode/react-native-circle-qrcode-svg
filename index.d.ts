@@ -37,6 +37,12 @@ export interface QRCodeProps {
   ecl?: "L" | "M" | "Q" | "H";
   /* error handler called when matrix fails to generate */
   onError?: Function;
+  /* Is it a circle QR code? */
+  isCircle: boolean;
+  /* the caption of the QR code*/
+  text?: string,
+  /* ratio of the text */
+  ratio;
 }
 
 export default QRCode;
