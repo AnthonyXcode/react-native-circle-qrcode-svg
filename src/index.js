@@ -15,6 +15,49 @@ import Svg, {
 import genMatrix from './genMatrix'
 import transformMatrixIntoPath from './transformMatrixIntoPath'
 
+const renderText = ({
+  text,
+  ratio,
+  isCircle,
+  size,
+  startingPoint,
+  color,
+  backgroundColor,
+  enableLinearGradient
+}) => {
+  if (!text || !ratio) {
+    return null
+  }
+
+  const txtBaseline = isCircle ? 15 * ratio : 6 * ratio
+  const textPath = `M${0} ${size - startingPoint + txtBaseline} L${size} ${size - startingPoint + txtBaseline}`
+  const txtSize = isCircle ? ratio * 16 : ratio * 19
+  return (
+    <G y={isCircle ? '0' : '16'}>
+      <Defs>
+        <Path id='textPath' d={textPath} />
+      </Defs>
+      {isCircle &&
+        <Rect
+          x={0}
+          y={size - startingPoint}
+          width={size}
+          height={20 * ratio}
+          fill={backgroundColor}
+        />}
+      <Text
+        fill={enableLinearGradient ? 'url(#grad)' : color}
+        fontSize={txtSize}
+        textAnchor={isCircle ? 'middle' : 'end'}
+      >
+        <TextPath href='#textPath' startOffset={isCircle ? '50%' : '100%'}>
+          {text}
+        </TextPath>
+      </Text>
+    </G>
+  )
+}
+
 const renderLogo = ({
   size,
   logo,
@@ -88,7 +131,7 @@ const QRCode = ({
   onError,
   isCircle = false,
   text = '',
-  ratio = 1
+  ratio
 }) => {
   const result = useMemo(() => {
     try {
@@ -109,7 +152,6 @@ const QRCode = ({
 
   const { path, cellSize, startingPoint } = result
   const quietZone = isCircle ? 0 : border
-  const textPath = `M${0} ${size - startingPoint + 3 * cellSize} L${size} ${size - startingPoint + 3 * cellSize}`
 
   return (
     <Svg
@@ -134,7 +176,6 @@ const QRCode = ({
           <Stop offset='0' stopColor={linearGradient[0]} stopOpacity='1' />
           <Stop offset='1' stopColor={linearGradient[1]} stopOpacity='1' />
         </LinearGradient>
-        <Path id='textPath' d={textPath} />
         {isCircle && (
           <ClipPath id='circle'>
             <Circle cx='50%' cy='50%' r='50%' />
@@ -164,27 +205,7 @@ const QRCode = ({
             fill='#00000000'
           />
         )}
-        {!!text && (
-          <G y={isCircle ? '0' : '16'}>
-            <Rect
-              x={0}
-              y={size - startingPoint}
-              width={size}
-              height={4 * cellSize}
-              fill={backgroundColor}
-            />
-            <Text
-              fill={enableLinearGradient ? 'url(#grad)' : color}
-              fontSize='15'
-              fontWeight='300'
-              textAnchor={isCircle ? 'middle' : 'end'}
-            >
-              <TextPath href='#textPath' startOffset={isCircle ? '50%' : '100%'}>
-                {text}
-              </TextPath>
-            </Text>
-          </G>
-        )}
+        {renderText({ text, ratio, isCircle, size, startingPoint, color, backgroundColor, enableLinearGradient })}
       </G>
       {logo &&
         renderLogo({
