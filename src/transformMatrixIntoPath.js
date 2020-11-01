@@ -11,19 +11,27 @@ export default (matrix, size, isCircle) => {
     })
   })
   if (isCircle) {
-    const backgroundCellSize = size / matrix.length
-    path += 'M0 0'
-    matrix.forEach((row, i) => {
-      row.forEach((column, j) => {
-        const shouldDraw = Math.round(Math.random()) === 1
-        const isOutside = (backgroundCellSize * j < startingPoint || backgroundCellSize * (j + 1) > size - startingPoint) ||
-          (cellSize / 2 + backgroundCellSize * i < startingPoint || cellSize / 2 + backgroundCellSize * i > size - startingPoint)
-        if (shouldDraw && isOutside) {
-          path += `M${backgroundCellSize * j} ${cellSize / 2 + backgroundCellSize * i} `
-          path += `L${backgroundCellSize * (j + 1)} ${cellSize / 2 + backgroundCellSize * i} `
-        }
-      })
-    })
+    let i = 0
+    let j = 0
+    while (j * cellSize < size) {
+      i += 1
+      if (i * cellSize > size) {
+        i = 0
+        j += 1
+      }
+      const shouldDraw = Math.round(Math.random()) === 1
+      const isOutsideX = (i * cellSize < startingPoint)
+      const isOutsideY = (j * cellSize < startingPoint) || (j * cellSize > size - startingPoint)
+      if (shouldDraw && isOutsideX) {
+        path += `M${i * cellSize} ${cellSize / 2 + j * cellSize} `
+        path += `L${(i + 1) * cellSize} ${cellSize / 2 + j * cellSize} `
+        path += `M${size - i * cellSize} ${cellSize / 2 + j * cellSize} `
+        path += `L${size - (i + 1) * cellSize} ${cellSize / 2 + j * cellSize} `
+      } else if (shouldDraw && isOutsideY) {
+        path += `M${i * cellSize} ${cellSize / 2 + j * cellSize} `
+        path += `L${(i + 1) * cellSize} ${cellSize / 2 + j * cellSize} `
+      }
+    }
   }
   return {
     cellSize,
