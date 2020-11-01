@@ -109,7 +109,7 @@ const QRCode = ({
 
   const { path, cellSize, startingPoint } = result
   const quietZone = isCircle ? 0 : border
-  const textPath = `M${0} ${size - startingPoint} L${size} ${size - startingPoint}`
+  const textPath = `M${0} ${size - startingPoint + 3 * cellSize} L${size} ${size - startingPoint + 3 * cellSize}`
 
   return (
     <Svg
@@ -165,11 +165,13 @@ const QRCode = ({
           />
         )}
         {!!text && (
-          <G y={isCircle ? '14' : '16'}>
-            <Path
-              d={textPath}
-              stroke={backgroundColor}
-              strokeWidth={18}
+          <G y={isCircle ? '0' : '16'}>
+            <Rect
+              x={0}
+              y={size - startingPoint}
+              width={size}
+              height={4 * cellSize}
+              fill={backgroundColor}
             />
             <Text
               fill={enableLinearGradient ? 'url(#grad)' : color}

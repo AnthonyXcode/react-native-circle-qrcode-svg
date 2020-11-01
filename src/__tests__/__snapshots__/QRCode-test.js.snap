@@ -21,7 +21,7 @@ exports[`QRCode renders correctly 1`] = `
     </span>
     <span>
       Path: 
-      {"id":"textPath","d":"M0 100 L100 100"}
+      {"id":"textPath","d":"M0 112 L100 112"}
     </span>
   </span>
   <span>
@@ -61,7 +61,7 @@ exports[`QRCode renders with logo correctly 1`] = `
     </span>
     <span>
       Path: 
-      {"id":"textPath","d":"M0 100 L100 100"}
+      {"id":"textPath","d":"M0 112 L100 112"}
     </span>
   </span>
   <span>
@@ -147,7 +147,7 @@ exports[`QRCode renders with segmented value 1`] = `
     </span>
     <span>
       Path: 
-      {"id":"textPath","d":"M0 100 L100 100"}
+      {"id":"textPath","d":"M0 114.28571428571428 L100 114.28571428571428"}
     </span>
   </span>
   <span>
