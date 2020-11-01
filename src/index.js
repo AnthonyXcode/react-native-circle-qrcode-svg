@@ -29,11 +29,11 @@ const renderText = ({
     return null
   }
 
-  const txtBaseline = isCircle ? 15 * ratio : 6 * ratio
+  const txtBaseline = isCircle ? 15 * ratio : 17 * ratio
   const textPath = `M${0} ${size - startingPoint + txtBaseline} L${size} ${size - startingPoint + txtBaseline}`
   const txtSize = isCircle ? ratio * 16 : ratio * 19
   return (
-    <G y={isCircle ? '0' : '16'}>
+    <G>
       <Defs>
         <Path id='textPath' d={textPath} />
       </Defs>
