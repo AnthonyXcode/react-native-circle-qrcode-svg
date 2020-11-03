@@ -11,6 +11,7 @@ export default (matrix, size, isCircle) => {
     })
   })
   if (isCircle) {
+    const offset = 10 / matrix.length * 2
     let i = 0
     let j = 0
     while (j * cellSize < size) {
@@ -23,13 +24,13 @@ export default (matrix, size, isCircle) => {
       const isOutsideX = (i * cellSize < startingPoint)
       const isOutsideY = (j * cellSize < startingPoint) || (j * cellSize > size - startingPoint)
       if (shouldDraw && isOutsideX) {
-        path += `M${i * cellSize} ${cellSize / 2 + j * cellSize} `
-        path += `L${(i + 1) * cellSize} ${cellSize / 2 + j * cellSize} `
-        path += `M${size - i * cellSize} ${cellSize / 2 + j * cellSize} `
-        path += `L${size - (i + 1) * cellSize} ${cellSize / 2 + j * cellSize} `
+        path += `M${i * cellSize + offset} ${cellSize / 2 + j * cellSize + offset} `
+        path += `L${(i + 1) * cellSize + offset} ${cellSize / 2 + j * cellSize + offset} `
+        path += `M${size - i * cellSize - offset} ${cellSize / 2 + j * cellSize + offset} `
+        path += `L${size - (i + 1) * cellSize - offset} ${cellSize / 2 + j * cellSize + offset} `
       } else if (shouldDraw && isOutsideY) {
-        path += `M${i * cellSize} ${cellSize / 2 + j * cellSize} `
-        path += `L${(i + 1) * cellSize} ${cellSize / 2 + j * cellSize} `
+        path += `M${i * cellSize + offset} ${cellSize / 2 + j * cellSize + offset} `
+        path += `L${(i + 1) * cellSize + offset} ${cellSize / 2 + j * cellSize + offset} `
       }
     }
   }
