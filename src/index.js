@@ -135,7 +135,7 @@ const QRCode = ({
 }) => {
   const result = useMemo(() => {
     try {
-      return transformMatrixIntoPath(genMatrix(value, ecl), size, isCircle)
+      return transformMatrixIntoPath(genMatrix(value, ecl), size, isCircle, border)
     } catch (error) {
       if (onError && typeof onError === 'function') {
         onError(error)
@@ -144,7 +144,7 @@ const QRCode = ({
         throw error
       }
     }
-  }, [value, size, ecl])
+  }, [value, size, ecl, border])
 
   if (!result) {
     return null
@@ -201,7 +201,7 @@ const QRCode = ({
             cy='50%'
             r='50%'
             stroke={enableLinearGradient ? 'url(#grad)' : color}
-            strokeWidth={border > 0 ? border < 11 ? border : 10 : '1'}
+            strokeWidth={border}
             fill='#00000000'
           />
         )}
