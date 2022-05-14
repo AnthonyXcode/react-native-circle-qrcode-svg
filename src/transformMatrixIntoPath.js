@@ -18,7 +18,7 @@ export default (matrix, size, isCircle, border) => {
     }
   } else {
     let path = ''
-    const codeLength = (size - border) * Math.cos(Math.PI / 4)
+    const codeLength = (size - border * 2) * Math.cos(Math.PI / 4)
     const tempCellSize = codeLength / matrix.length
     let fillerCount = Math.round((size - codeLength) / tempCellSize)
     if (fillerCount % 2 !== 0) {
@@ -61,7 +61,7 @@ export default (matrix, size, isCircle, border) => {
     return {
       cellSize,
       path,
-      startingPoint: (startingPoint - 1) * cellSize
+      startingPoint: startingPoint * cellSize
     }
   }
 }
