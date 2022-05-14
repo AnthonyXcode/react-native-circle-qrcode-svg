@@ -23,15 +23,19 @@ const renderText = ({
   startingPoint,
   color,
   backgroundColor,
-  enableLinearGradient
+  enableLinearGradient,
+  cellSize
 }) => {
   if (!text || !ratio) {
     return null
   }
 
-  const txtBaseline = isCircle ? 15 * ratio : 17 * ratio
-  const textPath = `M${0} ${size - startingPoint + txtBaseline} L${size} ${size - startingPoint + txtBaseline}`
   const txtSize = isCircle ? ratio * 16 : ratio * 19
+
+  const numberOfLine = Math.ceil(txtSize / cellSize) + 1
+  const txtBaseline = isCircle ? cellSize * (numberOfLine - 0.5) : 17 * ratio
+  const textPath = `M${0} ${size - startingPoint + txtBaseline} L${size} ${size - startingPoint + txtBaseline}`
+
   return (
     <G>
       <Defs>
@@ -40,15 +44,16 @@ const renderText = ({
       {isCircle &&
         <Rect
           x={0}
-          y={size - startingPoint}
+          y={size - startingPoint + cellSize * 0.5}
           width={size}
-          height={20 * ratio}
+          height={cellSize * numberOfLine}
           fill={backgroundColor}
         />}
       <Text
         fill={enableLinearGradient ? 'url(#grad)' : color}
         fontSize={txtSize}
         textAnchor={isCircle ? 'middle' : 'end'}
+        lineHeight={100}
       >
         <TextPath href='#textPath' startOffset={isCircle ? '50%' : '100%'}>
           {text}
@@ -195,6 +200,7 @@ const QRCode = ({
           stroke={enableLinearGradient ? 'url(#grad)' : color}
           strokeWidth={cellSize}
         />
+        {renderText({ text, ratio, isCircle, size, startingPoint, color, backgroundColor, enableLinearGradient, cellSize })}
         {isCircle && (
           <Circle
             cx='50%'
@@ -205,7 +211,6 @@ const QRCode = ({
             fill='#00000000'
           />
         )}
-        {renderText({ text, ratio, isCircle, size, startingPoint, color, backgroundColor, enableLinearGradient })}
       </G>
       {logo &&
         renderLogo({
