@@ -33,7 +33,7 @@ const renderText = ({
   const txtSize = isCircle ? ratio * 16 : ratio * 19
 
   const numberOfLine = Math.ceil(txtSize / cellSize)
-  const txtBaseline = isCircle ? cellSize * (numberOfLine - 0.5) : 17 * ratio
+  const txtBaseline = isCircle ? cellSize * numberOfLine - 3 * ratio : 17 * ratio
   const textPath = `M${0} ${size - startingPoint + txtBaseline} L${size} ${size - startingPoint + txtBaseline}`
 
   return (
